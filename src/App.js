@@ -123,17 +123,17 @@ const handleMicInputSpeech = async () => {
       
       <input type="file" accept="audio/*" onChange={handleFileChange} className="file-input"/>
       <div className="button-group">
-        <button onClick={handleWhisperUpload} className="button" disabled={loading}>
+        {/* <button onClick={handleWhisperUpload} className="button" disabled={loading}>
           Test Whisper with Upload
-        </button>
+        </button> */}
         <button onClick={handleSpeechUpload} className="button" disabled={loading}>
           Test Speech to Text with Upload
         </button>
       </div>
       <div className="button-group">
-        <button onClick={handleMicInputWhisper} className="button" disabled={loading}>
+        {/* <button onClick={handleMicInputWhisper} className="button" disabled={loading}>
           Record & Transcribe (Whisper)
-        </button>
+        </button> */}
         <button onClick={handleMicInputSpeech} className="button" disabled={loading}>
           Record & Transcribe (Azure Speech)
         </button>
@@ -141,9 +141,9 @@ const handleMicInputSpeech = async () => {
 
       {loading && <p className="loading">Processing...</p>}
 
-      <h3>Whisper Response:</h3>
+      {/* <h3>Whisper Response:</h3>
       <p className="response-text">{whisperResponse}</p>
-      <p className="process-duration">Processing time: {whisperDuration}</p>
+      <p className="process-duration">Processing time: {whisperDuration}</p> */}
 
       <h3>Speech to Text Response:</h3>
       <p className="response-text">{speechResponse}</p>
