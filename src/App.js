@@ -4,9 +4,11 @@ import "./App.css";
 
 const App = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [whisperResponse, setWhisperResponse] = useState("");
+  // eslint-disable-next-line no-unused-vars
+  // const [whisperResponse, setWhisperResponse] = useState("");
   const [speechResponse, setSpeechResponse] = useState("");
-  const [whisperDuration, setWhisperDuration] = useState("");
+  // eslint-disable-next-line no-unused-vars
+  // const [whisperDuration, setWhisperDuration] = useState("");
   const [speechDuration, setSpeechDuration] = useState("");
   const [loading, setLoading] = useState(false);
 const BASE_URL = "https://speech-test-webapp.azurewebsites.net/"; // Update this with your server URL
@@ -16,28 +18,28 @@ const BASE_URL = "https://speech-test-webapp.azurewebsites.net/"; // Update this
     setSelectedFile(e.target.files[0]);
   };
 
-  // Handle file upload for Whisper endpoint
-  const handleWhisperUpload = async () => {
-    if (!selectedFile) return alert("Please select a file first!");
+  // // Handle file upload for Whisper endpoint
+  // const handleWhisperUpload = async () => {
+  //   if (!selectedFile) return alert("Please select a file first!");
     
-    const formData = new FormData();
-    formData.append("file", selectedFile);
+  //   const formData = new FormData();
+  //   formData.append("file", selectedFile);
 
-    try {
-      setLoading(true);
-      const response = await axios.post(`${BASE_URL}/whisper`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      console.log(response.data);
-      setWhisperResponse(response.data["whisper_response"]);
-      setWhisperDuration(response.data["process_duration"]);
-    } catch (error) {
-      console.error("Error with Whisper API", error);
-      alert("Error with Whisper API");
-    } finally {
-      setLoading(false);
-    }
-  };
+  //   try {
+  //     setLoading(true);
+  //     const response = await axios.post(`${BASE_URL}/whisper`, formData, {
+  //       headers: { "Content-Type": "multipart/form-data" },
+  //     });
+  //     console.log(response.data);
+  //     setWhisperResponse(response.data["whisper_response"]);
+  //     setWhisperDuration(response.data["process_duration"]);
+  //   } catch (error) {
+  //     console.error("Error with Whisper API", error);
+  //     alert("Error with Whisper API");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   // Handle file upload for Azure Speech to Text endpoint
   const handleSpeechUpload = async () => {
@@ -61,61 +63,61 @@ const BASE_URL = "https://speech-test-webapp.azurewebsites.net/"; // Update this
     }
   };
 
-  // Handle microphone recording (for Whisper)
-  const handleMicInputWhisper = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const mediaRecorder = new MediaRecorder(stream);
-    let chunks = [];
+  // // Handle microphone recording (for Whisper)
+  // const handleMicInputWhisper = async () => {
+  //   const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  //   const mediaRecorder = new MediaRecorder(stream);
+  //   let chunks = [];
 
-    mediaRecorder.ondataavailable = (e) => {
-      chunks.push(e.data);
-    };
+  //   mediaRecorder.ondataavailable = (e) => {
+  //     chunks.push(e.data);
+  //   };
 
-    mediaRecorder.onstop = async () => {
-      const blob = new Blob(chunks, { type: "audio/wav" });
-      const audioFile = new File([blob], "micRecording.wav", {
-        type: "audio/wav",
-      });
+  //   mediaRecorder.onstop = async () => {
+  //     const blob = new Blob(chunks, { type: "audio/wav" });
+  //     const audioFile = new File([blob], "micRecording.wav", {
+  //       type: "audio/wav",
+  //     });
 
-      const formData = new FormData();
-      formData.append("file", audioFile);
+  //     const formData = new FormData();
+  //     formData.append("file", audioFile);
 
-      try {
-        setLoading(true);
-        const response = await axios.post(`${BASE_URL}/whisper`, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-        setWhisperResponse(response.data["whisper_response"]);
-        setWhisperDuration(response.data["process_duration"]);
-      } catch (error) {
-        console.error("Error with Whisper API", error);
-        alert("Error with Whisper API");
-      } finally {
-        setLoading(false);
-      }
-    };
+  //     try {
+  //       setLoading(true);
+  //       const response = await axios.post(`${BASE_URL}/whisper`, formData, {
+  //         headers: { "Content-Type": "multipart/form-data" },
+  //       });
+  //       setWhisperResponse(response.data["whisper_response"]);
+  //       setWhisperDuration(response.data["process_duration"]);
+  //     } catch (error) {
+  //       console.error("Error with Whisper API", error);
+  //       alert("Error with Whisper API");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    mediaRecorder.start();
+  //   mediaRecorder.start();
 
-    setTimeout(() => {
-      mediaRecorder.stop();
-    }, 5000); // Stop recording after 5 seconds
-  };
+  //   setTimeout(() => {
+  //     mediaRecorder.stop();
+  //   }, 5000); // Stop recording after 5 seconds
+  // };
 
   // Handle microphone recording (for Azure Speech)
-const handleMicInputSpeech = async () => {
-  try {
-    setLoading(true);
-    const response = await axios.post(`${BASE_URL}/speech2`);
-    setSpeechResponse(response.data["speech_response"]);
-    setSpeechDuration(response.data["process_duration"]);
-  } catch (error) {
-    console.error("Error with Speech API /speech2", error);
-    alert("Error with /speech2 API");
-  } finally {
-    setLoading(false);
-  }
-};
+  const handleMicInputSpeech = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.post(`${BASE_URL}/speech2`);
+      setSpeechResponse(response.data["speech_response"]);
+      setSpeechDuration(response.data["process_duration"]);
+    } catch (error) {
+      console.error("Error with Speech API /speech2", error);
+      alert("Error with /speech2 API");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="app-container">
